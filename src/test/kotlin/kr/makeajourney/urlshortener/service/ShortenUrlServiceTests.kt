@@ -25,4 +25,13 @@ class ShortenUrlServiceTests(
         val shortenUrl2 = shortenUrlService.getShortenUrl(originalUrl)
         assertThat(shortenUrl1).isEqualTo(shortenUrl2)
     }
+
+    @Test
+    fun testGetOriginalUrl() {
+        val originalUrl = "https://en.wikipedia.org/wiki/URL_shortening"
+        val shortenUrl = shortenUrlService.getShortenUrl(originalUrl)
+        val urlFromShortenUrl = shortenUrlService.getOriginalUrl(shortenUrl)
+
+        assertThat(urlFromShortenUrl).isEqualTo(originalUrl)
+    }
 }
