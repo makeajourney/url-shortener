@@ -20,6 +20,15 @@ class ShortenUrlService(
             ?: saveShortenUrl(originalUrl)
     }
 
+    @Transactional
+    fun getOriginalUrl(shortenUrl: String): String {
+        val entity = shortenUrlRepository.findByShortenUrl(shortenUrl)
+            ?: throw NoSuchElementException("존재하지 않는 경로입니다.")
+
+        entity.increaseRequestCount()
+        return entity.originalUrl
+    }
+
     private fun saveShortenUrl(originalUrl: String): String {
         val generatedString = generateUniqueStringFor3times() ?: throw IllegalStateException("다시 시도해주세요.")
         val entity = ShortenUrl(originalUrl, generatedString)

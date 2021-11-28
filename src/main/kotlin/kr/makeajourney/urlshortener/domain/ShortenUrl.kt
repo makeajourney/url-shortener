@@ -27,4 +27,8 @@ class ShortenUrl(
 
     @LastModifiedDate
     lateinit var modifiedAt: LocalDateTime
+
+    fun increaseRequestCount() {
+        requestCount++
+    }
 }
